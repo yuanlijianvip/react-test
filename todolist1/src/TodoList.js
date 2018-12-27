@@ -1,4 +1,6 @@
 import React,{ Component,Fragment } from 'react';
+import './style.css'
+import TodoItem from './TodoItem';
 
 class TodoList extends Component{
 
@@ -14,22 +16,61 @@ class TodoList extends Component{
 		return(
 			<Fragment>
 				<div>
+					<label htmlFor="insertArea">输入内容</label>
 					<input 
+						id="insertArea"
+						className='input'
 						value={this.state.inputValue}
-						onChange={this.handleInputChange}
+						onChange={this.handleInputChange.bind(this)}
 					/>
-					<button>提交</button>
+					<button onClick={this.handleBtnClick.bind(this)}>提交</button>
 				</div>
 				<ul>
-					<li>学英语</li>
-					<li>Learning React</li>
+					{
+						this.state.list.map((item,index)=>{
+							return (
+								<div>
+									<TodoItem content={item}/>
+									{/*<li 
+										key={index} 
+										onClick={this.handleItemDelete.bind(this,index)}
+										dangerouslySetInnerHTML={{__html:item}}
+									>
+									
+									</li>*/}
+								</div>
+								)
+						})
+					}
 				</ul>
 			</Fragment>
 		)
 		}
 
 		handleInputChange(e){
-			this.state.inputValue=e.target.value;
+			this.setState({
+				inputValue:e.target.value
+			})
+			//console.log(this);
+			//this.state.inputValue=e.target.value;
+		}
+
+		handleBtnClick(){
+			this.setState({
+				list:[...this.state.list,this.state.inputValue],
+				inputValue:''
+			})
+		}
+
+		handleItemDelete(index){
+			//immutable
+			//state 不允许我们做任何的改变
+			const list=[...this.state.list];
+			list.splice(index,1);
+			this.setState({
+				list:list
+			})
+		//	console.log(index);
 		}
 	}
 
