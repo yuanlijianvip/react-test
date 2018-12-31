@@ -32,14 +32,14 @@ class TodoList extends Component {
     
     render(){
       return (<div>
-        <h1>Todos</h1>
+        <h1>TodoList</h1>
         <input className = 'oInput' ></input>
         <button onClick = {this.handleClick.bind(this)}>确定</button>
         <div>
           {
               this.con.map((itrem,index)=>{
                 if(itrem.status == this.xuan){
-                  return (<div><li >{itrem.vas}</li><button onClick = {this.changeSty.bind(this,index)}>完成</button></div>)
+                  return (<div><span >{itrem.vas}</span><button onClick = {this.changeSty.bind(this,index)}>完成</button></div>)
                 }
                 
               })
