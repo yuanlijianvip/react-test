@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './style.css';
 import 'antd/dist/antd.css';
-import { Button} from 'antd';
+import {Button} from 'antd';
 class TodoList extends Component {
     constructor(props){
       super(props);
@@ -42,14 +42,10 @@ class TodoList extends Component {
       this.xuan = 2;
       this.setState({});
   }
-   
-   
-
-    
     render(){
       return (<div className='container'>
         <h1>TodoList</h1>
-        <input style={{width:'200px',marginRight:'10px'}} ref="myText" className = 'oInput'></input>
+        <input style={{width:'240px',marginRight:'10px'}} ref="myText" className = 'oInput'></input>
         <Button type="dashed" onClick = {this.handleClick.bind(this)}>确定</Button>
         <ul>
           {
@@ -63,26 +59,19 @@ class TodoList extends Component {
                   }else if(item.status==1){
                     return(<li><span onClick = {this.changeSty.bind(this,index)} style={{textDecoration : 'line-through'}}>{item.vas}</span><span><Button className="delete-btn" type="danger" size={"small"} onClick = {this.deleteClick.bind(this,index)}>删除</Button></span></li>)
                   }
-                }
-               else if(item.status == this.xuan){
-                  return (<li><span onClick = {this.changeSty.bind(this,index)} id="qqq" style={{textDecoration : item.status === 0 ? 'blink':'line-through'}} >
+                 }
+                else if(item.status == this.xuan){
+                  return (<li><span onClick = {this.changeSty.bind(this,index)} style={{textDecoration : item.status === 0 ? 'blink':'line-through'}} >
                         {item.vas}
                     </span><Button className="delete-btn" type="danger" size={"small"} onClick = {this.deleteClick.bind(this,index)}>删除</Button></li>)
                 }
-                // <button onClick = {this.changeSty.bind(this,index)}>完成</button>
-            
               })
           }
         </ul>
         <div>
-        
           <Button className="btn" type="primary" size={"small"} onClick = {this.changeTwo.bind(this)}>未完成</Button>
           <Button className="btn" type="primary" size={"small"} onClick = {this.changeOne.bind(this)}>已完成</Button>
           <Button className="btn" type="primary" size={"small"} onClick = {this.changeThree.bind(this)}>全部</Button>
-
-
-
-          {/* onClick={this.deleteItem.bind(this,index)} */}
         </div>
       </div>)
 
