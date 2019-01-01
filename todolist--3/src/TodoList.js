@@ -25,7 +25,7 @@ class TodoList extends Component {
     }
 
     changeSty = (index)=>{
-        this.con[index].status = 1;
+        this.con[index].status = (this.con[index].status === 0 ? 1 : 0);
         this.setState({});
     }
     changeOne = ()=>{
@@ -36,6 +36,11 @@ class TodoList extends Component {
         this.xuan = 0;
         this.setState({});
     }
+
+    changeThree = ()=>{
+      this.xuan = 2;
+      this.setState({});
+  }
    
    
 
@@ -48,7 +53,14 @@ class TodoList extends Component {
         <div>
           {
               this.con.map((item,index)=>{
-                if(item.status == this.xuan){
+                if(this.xuan==2){
+                    if(item.status==0){
+                    return(<div><span onClick = {this.changeSty.bind(this,index)}>{item.vas}</span><button onClick = {this.deleteClick.bind(this,index)}>删除</button></div>)
+                  }else if(item.status==1){
+                    return(<div><span onClick = {this.changeSty.bind(this,index)} style={{textDecoration : 'line-through'}}>{item.vas}</span><span><button onClick = {this.deleteClick.bind(this,index)}>删除</button></span></div>)
+                  }
+                }
+               else if(item.status == this.xuan){
                   return (<div><span onClick = {this.changeSty.bind(this,index)} id="qqq" style={{textDecoration : item.status === 0 ? 'blink':'line-through'}} >
                         {item.vas}
                     </span><button onClick = {this.deleteClick.bind(this,index)}>删除</button></div>)
@@ -61,6 +73,7 @@ class TodoList extends Component {
           
           <button onClick = {this.changeTwo.bind(this)}>未完成</button>
           <button onClick = {this.changeOne.bind(this)}>已完成</button>
+          <button onClick = {this.changeThree.bind(this)}>全部</button>
 
 
 
