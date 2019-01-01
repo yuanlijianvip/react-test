@@ -9,8 +9,10 @@ class TodoList extends Component{
 		super(props);
 		this.state={
 				inputValue:'',
+				status:0,
 				list:[]
 		}
+		this.xuan=0;
 		this.handleInputChange=this.handleInputChange.bind(this);
 		this.handleBtnClick=this.handleBtnClick.bind(this);
 		this.handleItemDelete=this.handleItemDelete.bind(this);
@@ -40,14 +42,23 @@ class TodoList extends Component{
 				return 	this.state.list.map((item,index)=>{
 				return (
 					<div>
-						<TodoItem 
+
+             <input  type="checkbox" class="toggle"></input>
+             <span id="content"  onClick={this.handleClick }>{content}</span>
+             <button  onClick={this.handleFiClick.bind(this)} >完成</button>
+						{/* <TodoItem 
 							content={item} 
 							index={index}
-							deleteItem={this.handleItemDelete}	
-						/>
+							deleteItem={this.handleItemDelete}
+							finishIten={this.finish.bind(this)}	
+						/> */}
 					</div>
 					)
 			})
+		}
+
+		finish(){
+			
 		}
 
 		handleInputChange(e){

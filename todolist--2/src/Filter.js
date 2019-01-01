@@ -28,3 +28,9 @@ finish(){
 
 
 export default Filter;
+
+
+deleteClick=(index)=>{
+  this.con[index].splice(values);
+  this.setState(this.con);
+}

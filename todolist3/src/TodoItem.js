@@ -1,5 +1,5 @@
 import React,{ Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 
 class TodoItem extends Component{
@@ -9,14 +9,6 @@ class TodoItem extends Component{
         this.handleClick=this.handleClick.bind(this);
     }
 
-    shouldComponentUpdate(nextProps,nextState){
-        if(nextProps.content!==this.props.content){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
     render(){
         const {content}=this.props;
         return (
@@ -24,13 +16,18 @@ class TodoItem extends Component{
             
          <div>
              <input  type="checkbox" class="toggle"></input>
-             <span id="content">{content}</span>
-             <button   onClick={this.handleClick }>删除</button>
+             <span id="content"  onClick={this.handleClick }>{content}</span>
+             <button  onClick={this.handleFiClick.bind(this)} >完成</button>
          </div>
         
          </div>
          )
     }
+
+    handleFiClick(){
+        
+    }
+
 
     handleClick(){
         const {deleteItem,index}=this.props;
@@ -39,11 +36,4 @@ class TodoItem extends Component{
 }
 
 
-TodoItem.propTypes={
-    test:PropTypes.string.isRequired,
-    content:PropTypes.oneOfType([PropTypes.number,PropTypes.string]),
-    deleteItem:PropTypes.func,
-    index:PropTypes.number
-
-}
 export default TodoItem;
