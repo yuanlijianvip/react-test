@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
  import './style.css';
-import 'antd/dist/antd.css';
-import { Button } from 'antd';
+// import 'antd/dist/antd.css';
+// import { Button } from 'antd';
 class TodoList extends Component {
     constructor(props){
       super(props);
@@ -74,7 +74,7 @@ class TodoList extends Component {
           
           <button onClick = {this.changeTwo.bind(this)}>未完成</button>
           <button onClick = {this.changeOne.bind(this)}>已完成</button>
-          <Button type="primary" onClick = {this.changeThree.bind(this)}>全部</Button>
+          <button type="primary" onClick = {this.changeThree.bind(this)}>全部</button>
 
 
 

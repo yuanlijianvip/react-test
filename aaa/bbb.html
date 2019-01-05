@@ -1,0 +1,77 @@
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: [
+        {text: 'Do the dishes', id: 1},
+        {text: 'Take out the trash', id: 2},
+        {text: 'Mow the lawn', id: 3},
+      ],
+      text: ''
+    };
+  }
+
+  render() {
+    return (
+      <div>
+        <input
+          className="input"
+          placeholder="Add a todo"
+          onChange={this.handleChange}
+          onKeyUp={this.handleKeyUp}
+          value={this.state.text}
+        />
+        <TodoList items={this.state.items} deleteItem={this.deleteItem} />
+      </div>
+    );
+  }
+
+  handleChange = (e) => {
+    this.setState({ text: e.target.value });
+  }
+
+  handleKeyUp = (e) => {
+    const text = this.state.text;
+    if (e.keyCode === 13 && text.trim().length) {
+      const newItem = {
+        text: text,
+        id: Date.now()
+      };
+      this.setState((prevState) => ({
+        items: prevState.items.concat(newItem),
+        text: ''
+      }));
+    }
+  }
+
+  deleteItem = (id) => {
+    this.setState({
+      items: this.state.items.filter(item => item.id !== id)
+    });
+  }
+}
+
+class TodoList extends React.Component {
+  handleClick(id){
+    this.props.deleteItem(id);
+  }
+
+  render() {
+    return (
+      <ul>
+        {this.props.items.map((item, index) => (
+          <li key={item.id}>
+            <div className="tags has-addons">
+              <span className="tag is-info">{index + 1}. {item.text}</span>
+              <a 
+                className="tag is-delete" 
+                onClick={this.handleClick.bind(this, item.id)}
+              ></a>
+            </div>
+          </li>
+        ))}
+      </ul>
+    );
+  }
+}
+ReactDOM.render(<App />, document.querySelector('#app'))

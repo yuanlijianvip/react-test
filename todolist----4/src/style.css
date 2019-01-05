@@ -28,3 +28,7 @@ ul li {
 .btn{
   margin-right: 10px;
 }
+
+.selected span{
+	text-decoration:line-through;
+}

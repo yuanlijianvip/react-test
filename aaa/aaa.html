@@ -1,0 +1,34 @@
+1 <!DOCTYPE html> 
+2 <html> 
+3<head> 
+4 <script src="react-demos-master/build/react.js"></script> 
+5 <script src="react-demos-master/build/react-dom.js"></script> 
+6 <script src="react-demos-master/build/browser.min.js"></script> 
+7</head> 
+8<body> 
+9 <div id="todoList"></div> 
+1011<script> 
+12 var items = [ 
+  13 {text:'Sth1',id:1,statue:false}, 
+  14 {text:'Sth2',id:2,statue:true}, 
+  15 {text:'Sth3',id:3,statue:true}, 
+  16 {text:'Sth4',id:4,statue:true} 
+  17 ] 
+  18</script> 
+  19<script 
+  type="text/babel"> 
+  20var TodoListItem = React.createClass({ 
+    21 getInitialState:function(){ 
+      22 return { 
+        23 statue:this.props.statue 
+        24 
+        } 
+        25 
+        }, 
+        26 toggleState:function(){ 
+          27 this.setState({statue:!this.state.statue}) 
+          28 }, 
+          29 render:function(){ 
+            30 if(!this.state.statue){ 
+              31 return ( 
+                32<li onClick={this.toggleState}>{this.props.text}</li> 33) 34 }else{ 35 return ( 36<li onClick={this.toggleState}><s>{this.props.text}</s></li> 37) 38 } 39 40 } 41}); 42var TodoList = React.createClass({ 43 render:function(){44 var listItem = this.props.list.map(function(item){ 45return <TodoListItem key={item.id} text={item.text} statue = {item.statue}></TodoListItem> 46 }) 47 return ( 48<ul> 49 {listItem} 50</ul> 51 ) 52 } 53}); 54var FilterLink = React.createClass({ 55 render:function(){56 return ( 57<a href="javascript:void(0)" onClick={this.props.onClick.bind(null,this.props.filter)}>{this.props.text}</a> 58 ) 59 } 60}); 61var Footer = React.createClass({ 62 render:function(){63 return ( 64<div> 65 Filter: 66 Done: 67 <FilterLink filter="true" text="Done" onClick={this.props.showState} />; 68 noDone: 69 <FilterLink filter="false" text="noDone" onClick={this.props.showState} />; 70 All: 71 <FilterLink filter="all" text="All" onClick={this.props.showState} />; 72</div> 73 ) 74 } 75}); 76 77var id = 10; 78var TodoApp = React.createClass({ 79 getInitialState:function(){ 80 return { 81items:[] 82 } 83 }, 84 componentDidMount:function(){ 85 this.setState({items:items}) 86 }, 87 handleSubmit:function(e){ 88 items.push({ 89 text:this.refs.myTextInput.value, 90 id:id++, 91 statue:false 92 }); 93 this.setState({items:items}); 94 this.refs.myTextInput.value = ""; 95 e.preventDefault(); 96 }, 97 showState:function(type){ 98var filterItems = []; 99 if(type == "all"){100 filterItems = items101 }else{102 filterItems=items.filter((v)=>{103return v.statue == eval(type);104 })105 }106 this.setState({items:filterItems})107 },108 render:function(){109 return (110<div>111 <TodoList list = {this.state.items}/>112 <form onSubmit={this.handleSubmit}>113<input type="text" ref="myTextInput" onChange={this.handleChange}/>114<input type="submit" value="Add" onClick={this.handleSubmit} />115 </form>116 <Footer showState={this.showState}/>117</div>118 )119 }120})121ReactDOM.render(<TodoApp items={items} />, todoList);122</script>123</body>124 </html>View Code
