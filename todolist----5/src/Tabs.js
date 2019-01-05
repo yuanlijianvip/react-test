@@ -3,7 +3,6 @@ import './Tabs.css'
 export default class Tabs extends Component {
   constructor(props) {
     super(props)
-    console.log(props)
     this.state = {
       status: [
         {
@@ -32,7 +31,7 @@ export default class Tabs extends Component {
     return (
       <div className="helper">
         <span className="left">{this.props.unFinishCount}项未完成</span>
-        <span onClick={this.allAll.bind(this)}></span>
+        <span onClick={this.props.selectAll}>全选</span>
         <span className="tabs">
           {statusArr}
         </span>

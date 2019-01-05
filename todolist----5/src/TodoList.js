@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import Item from './Item';
 import Tabs from './Tabs';
 class TodoList extends Component {
-  constructor() {
-    super()
+  selectAllStatus = false
+  constructor(props) {
+    super(props)
     this.handleKeyUp = this.handleKeyUp.bind(this)
     this.writeTodo = this.writeTodo.bind(this)
     this.toggleComplete = this.toggleComplete.bind(this)
@@ -77,6 +78,31 @@ filterTodo(arr){
         return arr.filter(item => item.completed === completed)
     }
 }
+/**
+ * 全选
+ */
+selectAll = () => {
+    const { todoList } = this.state;
+    if (!this.selectAllStatus) {
+        document.querySelectorAll('input[type="checkbox"]').forEach(item => {
+            item.checked = 'checked'
+        })
+        todoList.forEach(item => {
+            item.completed = true
+        })
+    } else {
+        document.querySelectorAll('input[type="checkbox"]').forEach(item => {
+            item.checked = ''
+        })
+        todoList.forEach(item => {
+            item.completed = false
+        })
+    }
+    this.selectAllStatus = !this.selectAllStatus
+    this.setState({
+        todoList
+    })
+}
 render() {
     let displayList = this.filterTodo(this.state.todoList)
     let todoList = displayList.map(item => (
@@ -90,9 +116,14 @@ render() {
         <section className="real-app">
             <input type="text" className="add-input" value={this.state.todoText} placeholder="接下来要去做什么？" onKeyUp={this.handleKeyUp} onChange={this.writeTodo} />
             {todoList}
-            <Tabs keys={this.state.keys} unFinishCount={unFinishCount} changeStatus={this.changeStatus} clearTodoList={this.clearTodoList}></Tabs>
+            <Tabs 
+                selectAll={this.selectAll}
+                keys={this.state.keys} 
+                unFinishCount={unFinishCount} 
+                changeStatus={this.changeStatus} 
+                clearTodoList={this.clearTodoList}></Tabs>
         </section>)
-}
+    }
 }
 
 export default TodoList;
